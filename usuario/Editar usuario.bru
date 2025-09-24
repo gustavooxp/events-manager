@@ -1,0 +1,27 @@
+meta {
+  name: Editar usuario
+  type: http
+  seq: 4
+}
+
+put {
+  url: http://localhost:8080/api/v1/usuario/110f14e9-bbc0-4246-817b-6f6e21ea999c
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+      "email": "gustavo@gmail.com",
+      "senha": "2207",
+      "nome": "Gustavo",
+      "cpf": "12345678900",
+      "telefone": "4895602258",
+      "tipo": "ADMINISTRADOR",
+      "dataNascimento": "2007-07-22"
+    }
+}
+
+settings {
+  encodeUrl: true
+}

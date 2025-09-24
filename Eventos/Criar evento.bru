@@ -1,0 +1,28 @@
+meta {
+  name: Criar evento
+  type: http
+  seq: 1
+}
+
+post {
+  url: http://localhost:8080/api/v1/evento
+  body: json
+  auth: inherit
+}
+
+body:json {
+   {
+     "nome": "Evento Exemplo",
+     "descricao": "Evento Exemplo Descricao",
+     "tipo": "CONGRESSO",
+     "local": "Rua dos Exemplos",
+     "data_inicio": "2025-09-24T16:00",
+     "data_final": "2025-09-24T17:30",
+     "linkEvento": "qualquer coisa",
+     "linkImagem": "qualquer coisa"
+   }
+}
+
+settings {
+  encodeUrl: true
+}
