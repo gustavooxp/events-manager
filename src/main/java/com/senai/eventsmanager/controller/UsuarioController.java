@@ -13,32 +13,37 @@ import java.util.UUID;
 public class UsuarioController {
     @Autowired
     private UsuarioService service;
+
     // pegar um usuario pelo seu id
     @GetMapping("/{id}")
-    public UsuarioCreateDTO findById(@PathVariable("id") UUID id){
+    public UsuarioCreateDTO findById(@PathVariable("id") UUID id) {
         return service.findById(id);
     }
+
     // pegar todos os usuarios
     @GetMapping
-    public List<UsuarioCreateDTO> findAll(){
+    public List<UsuarioCreateDTO> findAll() {
         return service.findAll();
     }
+
     // salvar um usuario
     @PostMapping
     public UsuarioCreateDTO save(
-            @RequestBody UsuarioCreateDTO usuarioCreateDTO ){
+            @RequestBody UsuarioCreateDTO usuarioCreateDTO) {
         return service.save(usuarioCreateDTO);
     }
+
     // atualizar um usuario
     @PutMapping("/{id}")
     public UsuarioCreateDTO update(
-            @PathVariable("id")UUID id,
-            @RequestBody UsuarioCreateDTO usuarioCreateDTO){
-        return service.update(id,usuarioCreateDTO);
+            @PathVariable("id") UUID id,
+            @RequestBody UsuarioCreateDTO usuarioCreateDTO) {
+        return service.update(id, usuarioCreateDTO);
     }
+
     // deletar um usuario pelo seu id
     @DeleteMapping("/{id}")
-    public void deleteById(@PathVariable("id")UUID id){
+    public void deleteById(@PathVariable("id") UUID id) {
         service.deleteById(id);
     }
 }

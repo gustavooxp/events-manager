@@ -1,0 +1,19 @@
+meta {
+  name: Retorna nome
+  type: http
+  seq: 6
+}
+
+post {
+  url: http://localhost:8080/api/v1/auth/nome
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {}
+}
+
+settings {
+  encodeUrl: true
+}

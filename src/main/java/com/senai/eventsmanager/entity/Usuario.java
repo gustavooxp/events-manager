@@ -1,141 +1,65 @@
 package com.senai.eventsmanager.entity;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
-import java.util.UUID;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedBy;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
+import com.senai.eventsmanager.enums.UsuarioEnum;
 
 @Entity
 @Table(name = "usuario")
+@Getter 
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+@EntityListeners(AuditingEntityListener.class)
 public class Usuario {
+    
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO,
-                    generator = "UUID")
-    @Column(nullable = false, updatable = false)
-    private UUID id;
-    @Column(nullable = false, unique = true)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(nullable = false, unique = true, length = 150)
     private String email;
-    @Column(nullable = false)
+
+    @Column(nullable = false, length = 100)
     private String senha;
-    @Column(nullable = false)
+
+    @Column(nullable = false, length = 150)
     private String nome;
-    @Column(nullable = false, unique = true)
+
+    @Column(nullable = false, unique = true, length = 15)
     private String cpf;
+
+    @Column(nullable = false, length = 15)
     private String telefone;
+
+    @Enumerated(EnumType.ORDINAL)
     @Column(nullable = false)
     private UsuarioEnum tipo;
+
     @Column(nullable = false)
     private Date dataNascimento;
+
+    @CreatedDate
+    @Column(updatable = false, nullable = false)
     private LocalDateTime createdAt;
+
+    @LastModifiedBy
+    @Column(nullable = true)
     private LocalDateTime updatedAt;
 
     @OneToMany(mappedBy = "usuario")
     private List<Inscricao> inscricoes;
 
-    public Usuario() {
-    }
 
-    public Usuario(UUID id, String email, String senha, String nome, String cpf, String telefone, UsuarioEnum tipo, Date dataNascimento, LocalDateTime createdAt, LocalDateTime updatedAt) {
-        this.id = id;
-        this.email = email;
-        this.senha = senha;
-        this.nome = nome;
-        this.cpf = cpf;
-        this.telefone = telefone;
-        this.tipo = tipo;
-        this.dataNascimento = dataNascimento;
-        this.createdAt = createdAt;
-        this.updatedAt = updatedAt;
-    }
-
-    public UUID getId() {
-        return id;
-    }
-
-    public void setId(UUID id) {
-        this.id = id;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getSenha() {
-        return senha;
-    }
-
-    public void setSenha(String senha) {
-        this.senha = senha;
-    }
-
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    public String getCpf() {
-        return cpf;
-    }
-
-    public void setCpf(String cpf) {
-        this.cpf = cpf;
-    }
-
-    public String getTelefone() {
-        return telefone;
-    }
-
-    public void setTelefone(String telefone) {
-        this.telefone = telefone;
-    }
-
-    public UsuarioEnum getTipo() {
-        return tipo;
-    }
-
-    public void setTipo(UsuarioEnum tipo) {
-        this.tipo = tipo;
-    }
-
-    public Date getDataNascimento() {
-        return dataNascimento;
-    }
-
-    public void setDataNascimento(Date dataNascimento) {
-        this.dataNascimento = dataNascimento;
-    }
-
-    public LocalDateTime getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(LocalDateTime createdAt) {
-        this.createdAt = createdAt;
-    }
-
-    public LocalDateTime getUpdatedAt() {
-        return updatedAt;
-    }
-
-    public void setUpdatedAt(LocalDateTime updatedAt) {
-        this.updatedAt = updatedAt;
-    }
-
-    public List<Inscricao> getInscricoes() {
-        return inscricoes;
-    }
-
-    public void setInscricoes(List<Inscricao> inscricoes) {
-        this.inscricoes = inscricoes;
-    }
 }

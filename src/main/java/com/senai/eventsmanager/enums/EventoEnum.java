@@ -1,4 +1,4 @@
-package com.senai.eventsmanager.entity;
+package com.senai.eventsmanager.enums;
 
 public enum EventoEnum {
     CONGRESSO,
