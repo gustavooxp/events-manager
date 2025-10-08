@@ -2,12 +2,16 @@ package com.senai.eventsmanager.service;
 
 import com.senai.eventsmanager.dto.EventoDTO;
 import com.senai.eventsmanager.entity.Evento;
+import com.senai.eventsmanager.enums.EventoEnum;
 import com.senai.eventsmanager.repository.EventoRepository;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,12 +34,29 @@ public class EventoService {
 
     }
 
+     // pegar todos os eventos entre duas datas
+    public List <EventoDTO> calendario(String inicio, String dataFinal) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d-MM-yyyy");
+
+        LocalDateTime inicioFormatado = LocalDate.parse(inicio, formatter).atStartOfDay();
+        LocalDateTime finalFormatado = LocalDate.parse(dataFinal, formatter).atStartOfDay();
+
+        List<Evento> eventos = eventoRepository.calendario(inicioFormatado, finalFormatado);
+        List<EventoDTO> eventosDTO = new ArrayList<>();
+
+        for (Evento evento : eventos) {
+            eventosDTO.add(toDto(evento));
+        }
+        return eventosDTO;
+        
+    }
+
     public EventoDTO findById(Long id) {
         // retorna um entidade Evento
         Evento evento = eventoRepository.findById(id).orElseThrow();
         // método para converter um evento entity em eventoCreateDto
-        EventoDTO eventoCreateDTO = toDto(evento);
-        return eventoCreateDTO;
+        EventoDTO eventoDTO = toDto(evento);
+        return eventoDTO;
     }
 
     // método para salvar um evento
@@ -69,6 +90,18 @@ public class EventoService {
         }
         return eventosDTO;
     }
+
+    // metodo para listar eventos por tipo
+    public List<EventoDTO> findByTipo(EventoEnum tipo) {
+        List<Evento> eventos = eventoRepository.findByTipo(tipo);
+
+        List<EventoDTO> eventosDTO = new ArrayList<>();
+        for (Evento evento : eventos) {
+            eventosDTO.add(toDto(evento));
+        }
+        return eventosDTO;
+    }
+
 
     
 }

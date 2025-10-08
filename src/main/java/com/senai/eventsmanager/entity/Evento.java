@@ -37,7 +37,7 @@ public class Evento {
     @Column(nullable = false)
     private EventoEnum tipo;
     
-    @Column(nullable = false, length = 15)
+    @Column(nullable = false, length = 150)
     private String local;
 
     @Column(nullable = false)

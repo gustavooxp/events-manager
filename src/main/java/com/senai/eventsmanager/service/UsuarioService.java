@@ -2,6 +2,7 @@ package com.senai.eventsmanager.service;
 
 import com.senai.eventsmanager.dto.UsuarioDTO;
 import com.senai.eventsmanager.entity.Usuario;
+import com.senai.eventsmanager.enums.UsuarioEnum;
 import com.senai.eventsmanager.repository.UsuarioRepository;
 
 import org.springframework.beans.BeanUtils;
@@ -69,4 +70,14 @@ public class UsuarioService {
         return usuariosDto;
     }
 
+    // metodo para listar usuario por tipo
+    public List<UsuarioDTO> findByTipo(UsuarioEnum tipo) {
+        List<Usuario> usuarios = repository.findByTipo(tipo);
+
+        List<UsuarioDTO> usuarioDtos = new ArrayList<>();
+        for (Usuario usuario : usuarios) {
+            usuarioDtos.add(toDto(usuario));
+        }
+        return usuarioDtos;
+    }
 }
