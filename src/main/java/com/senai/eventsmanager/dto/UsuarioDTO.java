@@ -33,7 +33,7 @@ public class UsuarioDTO {
     private String email;
 
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    @DeveTerSalmo
+    //@DeveTerSalmo
     private String senha;
 
     @NotBlank(message = "O nome deve ser preenchido")
@@ -41,7 +41,7 @@ public class UsuarioDTO {
     private String nome;
 
     @NotBlank(message = "O CPF deve ser preenchido")
-    @CPF(message = "O CPF deve ser válido")
+    // @CPF(message = "O CPF deve ser válido")
     private String cpf;
 
     @NotBlank(message = "O telefone deve ser preenchido")

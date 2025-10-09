@@ -24,7 +24,7 @@ public class JwtUtil {
     private final Key key = Keys.hmacShaKeyFor(SEGREDO.getBytes());
 
 
-    public String gerarTolen(String email) {
+    public String gerarToken(String email) {
         return Jwts.builder()
                 .setSubject(email) // defino qual o email que sera utiliado na autentificação
                 .setIssuedAt(new Date(System.currentTimeMillis())) // quando com data, hora, minutos e segundos a sessão foi iniciada
