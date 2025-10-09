@@ -7,6 +7,7 @@ import com.senai.eventsmanager.repository.UsuarioRepository;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -17,6 +18,9 @@ import java.util.List;
 public class UsuarioService {
     @Autowired
     UsuarioRepository repository;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder; 
 
     // método para converter uma inscrição para DTO
     public UsuarioDTO toDto(Usuario usuario) {
@@ -41,8 +45,9 @@ public class UsuarioService {
     // método para salvar um usuário
     public UsuarioDTO save(UsuarioDTO usuarioDto) {
         Usuario usuario = toEntity(usuarioDto);
-        usuario.setCreatedAt(LocalDateTime.now());
-        usuario.setUpdatedAt(LocalDateTime.now());
+        //CRIPTOGRAGAR SENHA
+        String senhaCriptografada = passwordEncoder.encode(usuarioDto.getSenha());
+        usuario.setSenha(senhaCriptografada);
         usuario = repository.save(usuario);
         return toDto(usuario);
     }
