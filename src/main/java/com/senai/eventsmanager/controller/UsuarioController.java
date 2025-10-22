@@ -33,7 +33,7 @@ public class UsuarioController {
 
     // pegar todos os usuarios
     @GetMapping
-    public List<UsuarioDTO> findAll() {
+    public List<UsuarioDTO> findArealll() {
         return service.findAll();
     }
 
