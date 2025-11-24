@@ -26,7 +26,7 @@ public class EventoService {
         BeanUtils.copyProperties(evento, dto);
         return dto;
     }
-    
+        
 
     public Evento toEntity(EventoDTO dto) {
         Evento evento = new Evento();
