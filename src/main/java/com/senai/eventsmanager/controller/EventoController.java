@@ -12,10 +12,10 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 
-@CrossOrigin(origins = "http://localhost:5173")
+@CrossOrigin
 @RestController
 @RequestMapping("/api/v1/evento")
-// http://localhost:8080/api/v1/evento/1
+
 public class EventoController {
     @Autowired
     EventoService service;

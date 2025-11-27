@@ -52,7 +52,7 @@ public class UsuarioDTO {
     private UsuarioEnum tipo;//usuario, organizador, adm
 
     @NotNull(message = "A data de nascimento deve ser preenchida")
-    @JsonFormat(pattern = "dd/MM/yyyy")
+    @JsonFormat(pattern = "yyy-MM-dd")
     private Date dataNascimento;
 
 }
