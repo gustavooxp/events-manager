@@ -2,6 +2,7 @@ package com.senai.eventsmanager.controller;
 
 import com.senai.eventsmanager.dto.InscricaoDTO;
 import com.senai.eventsmanager.service.InscricaoService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -9,7 +10,13 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/v1/inscricao")
 public class InscricaoController {
-    InscricaoService service;
+
+    @Autowired
+    private InscricaoService service;
+
+    public InscricaoController(InscricaoService service) {
+        this.service = service;
+    }
 
     // pegar um inscricao pelo seu id
     @GetMapping("/{id}")
@@ -25,10 +32,10 @@ public class InscricaoController {
 
     // salvar uma inscricao
     @PostMapping
-    public InscricaoDTO save(
-            @RequestBody InscricaoDTO inscricaoCreateDTO) {
+    public InscricaoDTO save(@RequestBody InscricaoDTO inscricaoCreateDTO) {
         return service.save(inscricaoCreateDTO);
     }
+
 
     // atualizar uma inscricao
     @PutMapping("/{id}")

@@ -1,5 +1,6 @@
 package com.senai.eventsmanager.service;
 
+import com.senai.eventsmanager.config.SecurityConfig;
 import com.senai.eventsmanager.dto.UsuarioDTO;
 import com.senai.eventsmanager.entity.Usuario;
 import com.senai.eventsmanager.enums.UsuarioEnum;
@@ -21,6 +22,8 @@ public class UsuarioService {
     @Autowired
     private PasswordEncoder passwordEncoder; 
 
+    @Autowired
+    SecurityConfig securityConfig;
     // método para converter uma inscrição para DTO
     public UsuarioDTO toDto(Usuario usuario) {
         UsuarioDTO dto = new UsuarioDTO();
@@ -85,15 +88,15 @@ public class UsuarioService {
         return usuarioDtos;
     }
 
-    public boolean autenticar(String email, String senha){
+    public Usuario autenticar(String email, String senhaDigitada) {
+
         Usuario usuario = repository.findByEmail(email);
 
-        if (usuario != null) {
-            String senhaNoBanco = usuario.getSenha();
-
-            return passwordEncoder.matches(senha, senhaNoBanco);
+        if (usuario != null && passwordEncoder.matches(senhaDigitada, usuario.getSenha())) {
+            return usuario;
         }
 
-        return false;
+        return null;
     }
+
 }

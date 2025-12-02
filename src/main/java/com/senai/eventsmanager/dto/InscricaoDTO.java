@@ -27,6 +27,4 @@ public class InscricaoDTO {
     @NotNull(message = "O usuário deve ser preenchido")
     private Usuario usuario;
 
-
-    
 }

@@ -1,13 +1,18 @@
 package com.senai.eventsmanager.controller;
 
 import com.senai.eventsmanager.dto.EventoDTO;
+import com.senai.eventsmanager.dto.UsuarioDTO;
 import com.senai.eventsmanager.enums.EventoEnum;
+import com.senai.eventsmanager.enums.UsuarioEnum;
 import com.senai.eventsmanager.service.EventoService;
 
+import com.senai.eventsmanager.service.UsuarioService;
 import jakarta.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -19,6 +24,9 @@ import java.util.List;
 public class EventoController {
     @Autowired
     EventoService service;
+
+    @Autowired
+    private UsuarioService usuarioService;
 
     // pegar um evento pelo seu id
     @GetMapping("/{id}")
@@ -45,10 +53,21 @@ public class EventoController {
     }
 
     // salvar um evento
-    @PostMapping
     public EventoDTO save(
-            @RequestBody @Valid EventoDTO eventoCreateDTO) {
-        return service.save(eventoCreateDTO);
+            @RequestBody EventoDTO eventoDto,
+            @RequestParam Long usuarioId
+    ) {
+
+        UsuarioDTO usuario = usuarioService.findById(usuarioId);
+
+        if (usuario.getTipo() == UsuarioEnum.CLIENTE) {
+            throw new ResponseStatusException(
+                    HttpStatus.FORBIDDEN,
+                    "CLIENTE não tem permissão para criar eventos."
+            );
+        }
+
+        return service.save(eventoDto);
     }
 
     // atualizar um evento

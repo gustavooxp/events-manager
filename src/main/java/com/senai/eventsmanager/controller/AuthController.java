@@ -1,13 +1,10 @@
 package com.senai.eventsmanager.controller;
 
-
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.senai.eventsmanager.config.JwtUtil;
 import com.senai.eventsmanager.dto.AuthDTO;
+import com.senai.eventsmanager.entity.Usuario;
 import com.senai.eventsmanager.service.UsuarioService;
 
 import jakarta.validation.Valid;
@@ -31,19 +29,28 @@ public class AuthController {
 
     @PostMapping("/login")
     public ResponseEntity<Map<String, String>> login(@RequestBody @Valid AuthDTO dto) {
-        String email = dto.getEmail();
-        String senha = dto.getSenha();    
 
-        
+        var usuario = service.autenticar(dto.getEmail(), dto.getSenha());
 
-        if (service.autenticar(email, senha)) {
-            String token = jwtUtil.gerarToken(email);
-
-            return ResponseEntity.ok(Map.of("token", token));
-            
+        if (usuario == null) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                    .body(Map.of("error", "Credenciais inválidas"));
         }
-        return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
-                .body(Map.of("error", "Credenciais inválidas"));
+
+        System.out.println("📌 LOGIN DE: " + usuario.getEmail());
+
+        String token = jwtUtil.gerarToken(usuario.getEmail());
+
+        System.out.println("📌 TOKEN GERADO COM EMAIL: " + usuario.getEmail());
+        System.out.println("📌 TOKEN: " + token);
+
+        return ResponseEntity.ok(
+                Map.of(
+                        "token", token,
+                        "id", String.valueOf(usuario.getId()),
+                        "nome", usuario.getNome()
+                )
+        );
     }
 
 }
