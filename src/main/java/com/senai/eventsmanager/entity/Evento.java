@@ -12,6 +12,7 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.senai.eventsmanager.enums.EventoEnum;
 
 @Entity // pra dizer pro spring que isso é uma entidade
@@ -61,6 +62,7 @@ public class Evento {
     private LocalDateTime updatedAt;
 
     // relacionamento com o objeto inscricao
+    @JsonBackReference
     @OneToMany(mappedBy = "evento")
     private List<Inscricao> inscricoes;
 }

@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.Date;
+import java.util.List;
 
 import org.hibernate.validator.constraints.br.CPF;
 
@@ -54,5 +55,8 @@ public class UsuarioDTO {
     @NotNull(message = "A data de nascimento deve ser preenchida")
     @JsonFormat(pattern = "yyy-MM-dd")
     private Date dataNascimento;
+
+    private List<InscricaoDTO> inscricoes;
+
 
 }

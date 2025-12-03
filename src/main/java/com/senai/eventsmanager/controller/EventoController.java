@@ -16,7 +16,6 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
-
 @CrossOrigin
 @RestController
 @RequestMapping("/api/v1/evento")
@@ -53,20 +52,9 @@ public class EventoController {
     }
 
     // salvar um evento
+    @PostMapping
     public EventoDTO save(
-            @RequestBody EventoDTO eventoDto,
-            @RequestParam Long usuarioId
-    ) {
-
-        UsuarioDTO usuario = usuarioService.findById(usuarioId);
-
-        if (usuario.getTipo() == UsuarioEnum.CLIENTE) {
-            throw new ResponseStatusException(
-                    HttpStatus.FORBIDDEN,
-                    "CLIENTE não tem permissão para criar eventos."
-            );
-        }
-
+            @Valid @RequestBody EventoDTO eventoDto) {
         return service.save(eventoDto);
     }
 

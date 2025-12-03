@@ -57,6 +57,9 @@ public class UsuarioService {
     // método para atualizar um usuário
     public UsuarioDTO update(Long id, UsuarioDTO usuarioDto) {
         Usuario usuario = toEntity(usuarioDto);
+        //CRIPTOGRAGAR SENHA
+        String senhaCriptografada = passwordEncoder.encode(usuarioDto.getSenha());
+        usuario.setSenha(senhaCriptografada);
         usuario.setId(id);
         usuario = repository.save(usuario);
         return toDto(usuario);
@@ -98,5 +101,11 @@ public class UsuarioService {
 
         return null;
     }
+
+    public Usuario findUsuarioComInscricoes(Long id) {
+    return repository.findById(id)
+            .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
+}
+
 
 }

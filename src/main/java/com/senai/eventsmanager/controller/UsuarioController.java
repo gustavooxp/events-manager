@@ -1,6 +1,7 @@
 package com.senai.eventsmanager.controller;
 
 import com.senai.eventsmanager.dto.UsuarioDTO;
+import com.senai.eventsmanager.entity.Usuario;
 import com.senai.eventsmanager.enums.UsuarioEnum;
 import com.senai.eventsmanager.service.UsuarioService;
 
@@ -58,4 +59,10 @@ public class UsuarioController {
     public void deleteById(@PathVariable("id") Long id) {
         service.deleteById(id);
     }
+
+    @GetMapping("/{id}/inscricoes")
+public Usuario findUsuarioComInscricoes(@PathVariable Long id) {
+    return service.findUsuarioComInscricoes(id);
+}
+
 }

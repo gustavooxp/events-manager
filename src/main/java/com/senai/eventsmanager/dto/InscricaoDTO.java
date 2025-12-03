@@ -22,9 +22,9 @@ public class InscricaoDTO {
     private Long id;
 
     @NotNull(message = "O evento deve ser preenchido")
-    private Evento evento;
+    private Long eventoId;
 
     @NotNull(message = "O usuário deve ser preenchido")
-    private Usuario usuario;
+    private Long usuarioId;
 
 }

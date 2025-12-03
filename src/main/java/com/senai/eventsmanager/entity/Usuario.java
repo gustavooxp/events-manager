@@ -13,6 +13,7 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.senai.eventsmanager.enums.UsuarioEnum;
 
 @Entity
@@ -58,6 +59,7 @@ public class Usuario {
     @Column(nullable = true)
     private LocalDateTime updatedAt;
 
+    @JsonBackReference
     @OneToMany(mappedBy = "usuario")
     private List<Inscricao> inscricoes;
 
