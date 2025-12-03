@@ -61,7 +61,6 @@ public class Evento {
     @Column(nullable = true)
     private LocalDateTime updatedAt;
 
-    // relacionamento com o objeto inscricao
     @JsonBackReference
     @OneToMany(mappedBy = "evento")
     private List<Inscricao> inscricoes;

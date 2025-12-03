@@ -27,26 +27,22 @@ public class UsuarioController {
 
     }
 
-    // pegar um usuario pelo seu id
     @GetMapping("/{id}")
     public UsuarioDTO findById(@PathVariable("id") Long id) {
         return service.findById(id);
     }
 
-    // pegar todos os usuarios
     @GetMapping
     public List<UsuarioDTO> findArealll() {
         return service.findAll();
     }
 
-    // salvar um usuario
     @PostMapping
     public UsuarioDTO save(
             @RequestBody @Valid UsuarioDTO usuarioCreateDTO) {
         return service.save(usuarioCreateDTO);
     }
 
-    // atualizar um usuario
     @PutMapping("/{id}")
     public UsuarioDTO update(
             @PathVariable("id") Long id,
@@ -54,7 +50,6 @@ public class UsuarioController {
         return service.update(id, usuarioCreateDTO);
     }
 
-    // deletar um usuario pelo seu id
     @DeleteMapping("/{id}")
     public void deleteById(@PathVariable("id") Long id) {
         service.deleteById(id);

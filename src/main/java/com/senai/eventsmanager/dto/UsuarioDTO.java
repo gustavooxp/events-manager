@@ -34,7 +34,6 @@ public class UsuarioDTO {
     private String email;
 
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    //@DeveTerSalmo
     private String senha;
 
     @NotBlank(message = "O nome deve ser preenchido")
@@ -50,7 +49,7 @@ public class UsuarioDTO {
     private String telefone;
 
     @NotNull(message = "O tipo do usuário deve ser preenchido")
-    private UsuarioEnum tipo;//usuario, organizador, adm
+    private UsuarioEnum tipo;
 
     @NotNull(message = "A data de nascimento deve ser preenchida")
     @JsonFormat(pattern = "yyy-MM-dd")

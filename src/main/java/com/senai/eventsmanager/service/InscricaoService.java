@@ -27,28 +27,24 @@ public class InscricaoService {
     @Autowired
     UsuarioRepository usuarioRepository;
 
-    // método para converter uma inscrição para DTO
     public InscricaoDTO toDto(Inscricao inscricao) {
         InscricaoDTO dto = new InscricaoDTO();
         BeanUtils.copyProperties(inscricao, dto);
         return dto;
     }
 
-    // método para converter um DTO para entidade
     public Inscricao toEntity(InscricaoDTO dto) {
         Inscricao inscricao = new Inscricao();
         BeanUtils.copyProperties(dto, inscricao);
         return inscricao;
     }
 
-    // procurar uma inscrição pelo seu Id
     public InscricaoDTO findById(Long id) {
         Inscricao inscricao = repository.findById(id).orElseThrow();
         InscricaoDTO inscricaoDto = toDto(inscricao);
         return inscricaoDto;
     }
 
-    // método para salvar uma inscrição
     public InscricaoDTO save(InscricaoDTO dto) {
     Evento evento = eventoRepository.findById(dto.getEventoId())
             .orElseThrow(() -> new RuntimeException("Evento não encontrado"));
@@ -66,8 +62,6 @@ public class InscricaoService {
     return dto;
 }
 
-
-    // método para atualizar uma inscrição
     public InscricaoDTO update(Long id, InscricaoDTO inscricaoDto) {
         Inscricao inscricao = toEntity(inscricaoDto);
         inscricao.setId(id);
@@ -75,12 +69,10 @@ public class InscricaoService {
         return toDto(inscricao);
     }
 
-    // método para deletar uma inscição
     public void deleteById(Long id) {
         repository.deleteById(id);
     }
 
-    // método para listar todas as inscrições
     public List<InscricaoDTO> findAll() {
         List<Inscricao> inscricoes = repository.findAll();
         List<InscricaoDTO> inscricoesDto = new ArrayList<>();

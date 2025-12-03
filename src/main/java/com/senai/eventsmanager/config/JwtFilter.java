@@ -36,13 +36,11 @@ public class JwtFilter extends OncePerRequestFilter {
         String token = null;
         String email = null;
 
-        // Extrai token do Header
         if (authHeader != null && authHeader.startsWith("Bearer ")) {
             token = authHeader.substring(7);
             email = jwtUtil.extrairEmail(token);
         }
 
-        // AQUI COLOCA O IF !!!
         if (email != null && SecurityContextHolder.getContext().getAuthentication() == null) {
 
             var usuario = usuarioRepository.findByEmail(email);
@@ -52,7 +50,7 @@ public class JwtFilter extends OncePerRequestFilter {
                         new UsernamePasswordAuthenticationToken(
                                 usuario,
                                 null,
-                                Collections.emptyList() // <-- sem roles
+                                Collections.emptyList()
                         );
 
 

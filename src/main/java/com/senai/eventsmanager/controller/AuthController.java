@@ -37,12 +37,12 @@ public class AuthController {
                     .body(Map.of("error", "Credenciais inválidas"));
         }
 
-        System.out.println("📌 LOGIN DE: " + usuario.getEmail());
+        System.out.println("LOGIN DE: " + usuario.getEmail());
 
         String token = jwtUtil.gerarToken(usuario.getEmail());
 
-        System.out.println("📌 TOKEN GERADO COM EMAIL: " + usuario.getEmail());
-        System.out.println("📌 TOKEN: " + token);
+        System.out.println("TOKEN GERADO COM EMAIL: " + usuario.getEmail());
+        System.out.println("TOKEN: " + token);
 
         return ResponseEntity.ok(
                 Map.of(

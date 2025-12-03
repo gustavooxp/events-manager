@@ -22,11 +22,10 @@ public class EventoService {
 
     public EventoDTO toDto(Evento evento) {
         EventoDTO dto = new EventoDTO();
-        // pegar os dados de evento e passar para o eventoCreateDto
         BeanUtils.copyProperties(evento, dto);
         return dto;
     }
-        
+
 
     public Evento toEntity(EventoDTO dto) {
         Evento evento = new Evento();
@@ -35,8 +34,7 @@ public class EventoService {
 
     }
 
-     // pegar todos os eventos entre duas datas
-    public List <EventoDTO> calendario(String inicio, String dataFinal) {
+    public List<EventoDTO> calendario(String inicio, String dataFinal) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d-MM-yyyy");
 
         LocalDateTime inicioFormatado = LocalDate.parse(inicio, formatter).atStartOfDay();
@@ -49,25 +47,21 @@ public class EventoService {
             eventosDTO.add(toDto(evento));
         }
         return eventosDTO;
-        
+
     }
 
     public EventoDTO findById(Long id) {
-        // retorna um entidade Evento
         Evento evento = eventoRepository.findById(id).orElseThrow();
-        // método para converter um evento entity em eventoCreateDto
         EventoDTO eventoDTO = toDto(evento);
         return eventoDTO;
     }
 
-    // método para salvar um evento
     public EventoDTO save(EventoDTO eventoDto) {
         Evento evento = toEntity(eventoDto);
         evento = eventoRepository.save(evento);
         return toDto(evento);
     }
 
-    // método para atualizar um evento
     public EventoDTO update(Long id, EventoDTO eventoDto) {
         Evento evento = toEntity(eventoDto);
         evento.setId(id);
@@ -75,24 +69,19 @@ public class EventoService {
         return toDto(evento);
     }
 
-    // método para deletar um evento
     public void deleteById(Long id) {
         eventoRepository.deleteById(id);
     }
 
-    // método para listar todos os eventos
     public List<EventoDTO> findAll() {
         List<Evento> eventos = eventoRepository.findAll();
-        // criar lista de eventoCreateDTO
         List<EventoDTO> eventosDTO = new ArrayList<>();
-        // para cada evento na lista de eventos, converter para Dto e add na lista dto
         for (Evento evento : eventos) {
             eventosDTO.add(toDto(evento));
         }
         return eventosDTO;
     }
 
-    // metodo para listar eventos por tipo
     public List<EventoDTO> findByTipo(EventoEnum tipo) {
         List<Evento> eventos = eventoRepository.findByTipo(tipo);
 
@@ -102,7 +91,4 @@ public class EventoService {
         }
         return eventosDTO;
     }
-
-
-    
 }

@@ -24,7 +24,6 @@ public class Inscricao {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    //Campos com chaves estrangeiras
     @JsonManagedReference
     @ManyToOne
     @JoinColumn(name="evento_id",nullable = false)
