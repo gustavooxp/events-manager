@@ -58,5 +58,8 @@ public class UsuarioDTO {
 
     private List<InscricaoDTO> inscricoes;
 
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
+    private List<EventoUsuarioDTO> eventos;
+
 
 }

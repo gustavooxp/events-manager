@@ -1,7 +1,10 @@
 package com.senai.eventsmanager.service;
 
 import com.senai.eventsmanager.config.SecurityConfig;
+import com.senai.eventsmanager.dto.EventoUsuarioDTO;
+import com.senai.eventsmanager.dto.InscricaoDTO;
 import com.senai.eventsmanager.dto.UsuarioDTO;
+import com.senai.eventsmanager.entity.Inscricao;
 import com.senai.eventsmanager.entity.Usuario;
 import com.senai.eventsmanager.enums.UsuarioEnum;
 import com.senai.eventsmanager.repository.UsuarioRepository;
@@ -20,7 +23,10 @@ public class UsuarioService {
     UsuarioRepository repository;
 
     @Autowired
-    private PasswordEncoder passwordEncoder; 
+    private PasswordEncoder passwordEncoder;
+
+    @Autowired
+    private InscricaoService inscricaoService;
 
     @Autowired
     SecurityConfig securityConfig;
@@ -41,6 +47,8 @@ public class UsuarioService {
     // método para buscar um usuário pelo id
     public UsuarioDTO findById(Long id) {
         Usuario usuario = repository.findById(id).orElseThrow();
+
+
         return toDto(usuario);
     }
 
@@ -75,7 +83,20 @@ public class UsuarioService {
         List<Usuario> usuarios = repository.findAll();
         List<UsuarioDTO> usuariosDto = new ArrayList<>();
         for (Usuario usuario : usuarios) {
-            usuariosDto.add(toDto(usuario));
+            UsuarioDTO dto = toDto(usuario);
+            List<EventoUsuarioDTO> eventos = new ArrayList<>();
+
+            for (Inscricao inscricao: usuario.getInscricoes()){
+                EventoUsuarioDTO evento = new EventoUsuarioDTO();
+                evento.setNome(inscricao.getEvento().getNome());
+                evento.setDataInicio(inscricao.getEvento().getDataInicio());
+
+                eventos.add(evento);
+            }
+
+            dto.setEventos(eventos);
+
+            usuariosDto.add(dto);
         }
         return usuariosDto;
     }
