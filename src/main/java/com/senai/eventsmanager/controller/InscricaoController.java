@@ -32,8 +32,8 @@ public class InscricaoController {
 
     // salvar uma inscricao
     @PostMapping
-    public InscricaoDTO save(@RequestBody InscricaoDTO inscricaoCreateDTO) {
-        return service.save(inscricaoCreateDTO);
+    public InscricaoDTO save(@RequestBody InscricaoDTO inscricaoDTO) {
+        return service.save(inscricaoDTO);
     }
 
 
